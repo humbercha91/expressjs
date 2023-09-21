@@ -1,0 +1,34 @@
+extends layout.pug
+
+block content
+  .container.mt-4
+    .row
+      .col-md-12
+        input(type="text" placeholder="Buscar productos..." class="form-control" id="searchInput")
+        button.btn.btn-primary.mt-2(onclick="searchProducts()") Buscar
+    .row.mt-4
+      each product in products
+        .col-md-4
+          .card
+            .card-body
+              h5.card-title #{product.codigo}
+              p.card-text #{product.Descripcion}
+              p.card-text Precio: $#{product.precio1}
+      else
+        p No products found.
+  
+  script.
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+
+      searchInput.addEventListener('keydown', function(event) {
+        if (event.keyCode === 13) {
+          searchProducts();
+        }
+      });
+    });
+
+    function searchProducts() {
+      const query = document.querySelector('input').value;
+      window.location.href = `/api/v1/products?filter=${query}`;
+    }
