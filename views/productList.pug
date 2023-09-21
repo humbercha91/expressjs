@@ -19,16 +19,20 @@ block content
   
   script.
     document.addEventListener('DOMContentLoaded', function() {
+      console.log("DOM loaded.");
       const searchInput = document.getElementById('searchInput');
-
+    
       searchInput.addEventListener('keydown', function(event) {
         if (event.keyCode === 13) {
+          console.log("Enter pressed.");
           searchProducts();
         }
       });
     });
-
+    
     function searchProducts() {
+      console.log("searchProducts called.");
       const query = document.querySelector('input').value;
+      console.log(`Searching for ${query}`);
       window.location.href = `/api/v1/products?filter=${query}`;
     }
